@@ -1,40 +1,76 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
+import React, { useCallback } from "react";
+import ReactFlow, {
+  addEdge,
+  MiniMap,
+  Controls,
+  Background,
+  useNodesState,
+  useEdgesState,
+} from "reactflow";
 
-function App() {
-  const [count, setCount] = useState(0);
+import {
+  nodes as initialNodes,
+  edges as initialEdges,
+} from "./initial-elements";
+import CustomNode from "./CustomNode";
+
+import "reactflow/dist/style.css";
+import "./overview.css";
+
+const nodeTypes = {
+  custom: CustomNode,
+};
+
+const minimapStyle = {
+  height: 120,
+};
+
+const onInit = (reactFlowInstance) =>
+  console.log("flow loaded:", reactFlowInstance);
+
+const OverviewFlow = () => {
+  //@ts-ignore
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const onConnect = useCallback(
+    (params) => setEdges((eds) => addEdge(params, eds)),
+    [],
+  );
+
+  // we are using a bit of a shortcut here to adjust the edge type
+  // this could also be done with a custom edge for example
+  const edgesWithUpdatedTypes = edges.map((edge) => {
+    console.log("aaaa", edge.data);
+    if (edge.sourceHandle) {
+      //@ts-ignore
+      const edgeType = nodes.find((node) => node.type === "custom").data
+        .selects[edge.sourceHandle];
+      edge.type = edgeType;
+    }
+
+    return edge;
+  });
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-      </div>
-      <h1>React + Vite</h1>
-      <h2>On CodeSandbox!</h2>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR.
-        </p>
-
-        <p>
-          Tip: you can use the inspector button next to address bar to click on
-          components in the preview and open the code in the editor!
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <>
+      <div className="w-100 bg-red-500"> ABC</div>
+      <ReactFlow
+        nodes={nodes}
+        edges={edgesWithUpdatedTypes}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        onInit={onInit}
+        fitView
+        attributionPosition="top-right"
+        nodeTypes={nodeTypes}
+      >
+        <MiniMap style={minimapStyle} zoomable pannable />
+        <Controls />
+        <Background color="#aaa" gap={16} />
+      </ReactFlow>
+    </>
   );
-}
+};
 
-export default App;
+export default OverviewFlow;
