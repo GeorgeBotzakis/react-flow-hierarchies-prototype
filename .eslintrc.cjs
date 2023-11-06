@@ -1,3 +1,4 @@
+//Overrides fefault vite eslint from vite.config
 module.exports = {
   env: {
     browser: true,
@@ -28,5 +29,6 @@ module.exports = {
   rules: {
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
   },
 };

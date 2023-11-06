@@ -22,14 +22,14 @@ const nodeTypes = {
 };
 
 const minimapStyle = {
-  height: 120,
+  height: 50,
 };
 
 const onInit = (reactFlowInstance) =>
   console.log("flow loaded:", reactFlowInstance);
 
 const OverviewFlow = () => {
-  //@ts-ignore
+  //  eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect = useCallback(
@@ -53,7 +53,9 @@ const OverviewFlow = () => {
 
   return (
     <>
-      <div className="w-100 bg-red-500"> ABC</div>
+      <div className="w-full bg-red-500 border border-red-600 text-center">
+        <h1>PROOF OF CONCEPT FOR REACT FLOW</h1>
+      </div>
       <ReactFlow
         nodes={nodes}
         edges={edgesWithUpdatedTypes}
@@ -61,12 +63,12 @@ const OverviewFlow = () => {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onInit={onInit}
-        fitView
+        // fitView
         attributionPosition="top-right"
         nodeTypes={nodeTypes}
       >
         <MiniMap style={minimapStyle} zoomable pannable />
-        <Controls />
+        <Controls position="top-left" />
         <Background color="#aaa" gap={16} />
       </ReactFlow>
     </>

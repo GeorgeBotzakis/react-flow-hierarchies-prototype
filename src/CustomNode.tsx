@@ -19,8 +19,8 @@ const options = [
     label: "Straight",
   },
 ];
-// @ts-ignore
-function Select({ value, handleId, nodeId }) {
+
+function Select({ value, handleId, nodeId }: any) {
   const { setNodes } = useReactFlow();
   const store = useStoreApi();
 
