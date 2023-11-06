@@ -44,7 +44,7 @@ function Select({ value, handleId, nodeId }: any) {
   };
 
   return (
-    <div className="custom-node__select">
+    <div>
       <div>Edge Type</div>
       <select className="nodrag" onChange={onChange} value={value}>
         {options.map((option) => (
@@ -60,7 +60,7 @@ function Select({ value, handleId, nodeId }: any) {
 
 function CustomNode({ id, data }) {
   return (
-    <>
+    <div className="">
       <div className="custom-node__header">
         This is a <strong>custom node</strong>
       </div>
@@ -74,7 +74,7 @@ function CustomNode({ id, data }) {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

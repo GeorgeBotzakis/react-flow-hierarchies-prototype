@@ -6,6 +6,7 @@ import ReactFlow, {
   Background,
   useNodesState,
   useEdgesState,
+  PanOnScrollMode,
 } from "reactflow";
 
 import {
@@ -15,7 +16,7 @@ import {
 import CustomNode from "./CustomNode";
 
 import "reactflow/dist/style.css";
-import "./overview.css";
+import "./overview.scss";
 
 const nodeTypes = {
   custom: CustomNode,
@@ -40,21 +41,22 @@ const OverviewFlow = () => {
   // we are using a bit of a shortcut here to adjust the edge type
   // this could also be done with a custom edge for example
   const edgesWithUpdatedTypes = edges.map((edge) => {
-    console.log("aaaa", edge.data);
     if (edge.sourceHandle) {
       //@ts-ignore
-      const edgeType = nodes.find((node) => node.type === "custom").data
+      const edgeType = nodes.find((node) => node.type === "custom")?.data
         .selects[edge.sourceHandle];
+      console.log("decided edge type", edgeType, edge.id);
       edge.type = edgeType;
     }
+    console.log("edge", edge);
 
     return edge;
   });
 
   return (
     <>
-      <div className="w-full bg-red-500 border border-red-600 text-center">
-        <h1>PROOF OF CONCEPT FOR REACT FLOW</h1>
+      <div className="w-full bg-red-600 border-black border-4 text-center">
+        <h1 className="text-yellow-200">PROOF OF CONCEPT FOR REACT FLOW</h1>
       </div>
       <ReactFlow
         nodes={nodes}
@@ -63,7 +65,10 @@ const OverviewFlow = () => {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onInit={onInit}
-        // fitView
+        fitView
+        panOnScroll
+        selectionOnDrag
+        // panOnScrollMode={PanOnScrollMode.Vertical}
         attributionPosition="top-right"
         nodeTypes={nodeTypes}
       >

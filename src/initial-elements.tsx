@@ -29,6 +29,7 @@ export const nodes = [
     id: "4",
     type: "custom",
     position: { x: 100, y: 200 },
+    className: "[&:not(.selected)]:bg-yellow-500 [.selected&]:bg-red-500",
     data: {
       selects: {
         "handle-0": "smoothstep",
@@ -42,11 +43,11 @@ export const nodes = [
     data: {
       label: "custom style",
     },
-    className: "circle",
-    style: {
-      background: "#2B6CB0",
-      color: "white",
-    },
+    className: "circle bg-red-500",
+    // style: {
+    //   background: "#2B6CB0",
+    //   color: "white",
+    // },
     position: { x: 400, y: 200 },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
@@ -80,6 +81,8 @@ export const nodes = [
     },
     draggable: false,
     selectable: false,
+    sourcePosition: Position.Right,
+    targetPosition: Position.Left,
     position: { x: 150, y: 400 },
   },
   {
@@ -89,7 +92,7 @@ export const nodes = [
     data: {
       label: (
         <>
-          <strong>AAAAAA</strong>
+          <strong>TEST NODE</strong>
         </>
       ),
     },
@@ -128,7 +131,7 @@ export const edges = [
   },
   {
     id: "e5-5",
-    source: "7",
+    source: "4",
     target: "8",
     type: "smoothstep",
   },
