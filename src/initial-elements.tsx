@@ -28,12 +28,14 @@ export const nodes = [
   {
     id: "4",
     type: "custom",
+    selectable: true,
     position: { x: 100, y: 200 },
-    className: "[&:not(.selected)]:bg-yellow-500 [.selected&]:bg-red-500",
+    className:
+      "[&:not(.selected)]:bg-yellow-500 [.selected&]:bg-red-500 [.selected&]:text-black",
     data: {
       selects: {
         "handle-0": "smoothstep",
-        "handle-1": "smoothstep",
+        "handle-1": "default",
       },
     },
   },
@@ -96,7 +98,7 @@ export const nodes = [
         </>
       ),
     },
-    position: { x: 150, y: 500 },
+    position: { x: -100, y: 200 },
   },
 ];
 
@@ -134,5 +136,8 @@ export const edges = [
     source: "4",
     target: "8",
     type: "smoothstep",
+    markerEnd: {
+      type: MarkerType.ArrowClosed,
+    },
   },
 ];

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { Handle, useReactFlow, useStoreApi, Position } from "reactflow";
 
 const options = [
@@ -44,7 +44,7 @@ function Select({ value, handleId, nodeId }: any) {
   };
 
   return (
-    <div>
+    <div className="border border-red-500">
       <div>Edge Type</div>
       <select className="nodrag" onChange={onChange} value={value}>
         {options.map((option) => (
@@ -53,14 +53,22 @@ function Select({ value, handleId, nodeId }: any) {
           </option>
         ))}
       </select>
-      <Handle type="source" position={Position.Right} id={handleId} />
+      <Handle
+        type="source"
+        position={handleId === "handle-1" ? Position.Bottom : Position.Top}
+        id={handleId}
+        className="right"
+      />
     </div>
   );
 }
 
-function CustomNode({ id, data }) {
+function CustomNode({ id, data, selected }) {
+  // useEffect(() => {
+  //   console.log("use effect -- selected", selected);
+  // }, [selected]);
   return (
-    <div className="">
+    <div>
       <div className="custom-node__header">
         This is a <strong>custom node</strong>
       </div>

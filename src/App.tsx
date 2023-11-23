@@ -33,10 +33,10 @@ const OverviewFlow = () => {
   //  eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    [],
-  );
+  const onConnect = useCallback((params) => {
+    console.log("on connect", params);
+    setEdges((eds) => addEdge(params, eds));
+  }, []);
 
   // we are using a bit of a shortcut here to adjust the edge type
   // this could also be done with a custom edge for example
@@ -45,10 +45,10 @@ const OverviewFlow = () => {
       //@ts-ignore
       const edgeType = nodes.find((node) => node.type === "custom")?.data
         .selects[edge.sourceHandle];
-      console.log("decided edge type", edgeType, edge.id);
+      //console.log("decided edge type", edgeType, edge.id);
       edge.type = edgeType;
     }
-    console.log("edge", edge);
+    // console.log("edge", edge);
 
     return edge;
   });
