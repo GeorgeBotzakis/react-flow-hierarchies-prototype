@@ -1,31 +1,37 @@
-import React, { memo, useEffect } from "react";
-import { Handle, useReactFlow, useStoreApi, Position } from "reactflow";
+import React, { memo, useEffect } from 'react'
+import {
+  Handle,
+  useReactFlow,
+  useStoreApi,
+  Position,
+  NodeProps
+} from 'reactflow'
 
 const options = [
   {
-    value: "smoothstep",
-    label: "Smoothstep",
+    value: 'smoothstep',
+    label: 'Smoothstep'
   },
   {
-    value: "step",
-    label: "Step",
+    value: 'step',
+    label: 'Step'
   },
   {
-    value: "default",
-    label: "Bezier (default)",
+    value: 'default',
+    label: 'Bezier (default)'
   },
   {
-    value: "straight",
-    label: "Straight",
-  },
-];
+    value: 'straight',
+    label: 'Straight'
+  }
+]
 
 function Select({ value, handleId, nodeId }: any) {
-  const { setNodes } = useReactFlow();
-  const store = useStoreApi();
+  const { setNodes } = useReactFlow()
+  const store = useStoreApi()
 
   const onChange = (evt) => {
-    const { nodeInternals } = store.getState();
+    const { nodeInternals } = store.getState()
     setNodes(
       Array.from(nodeInternals.values()).map((node) => {
         if (node.id === nodeId) {
@@ -33,15 +39,15 @@ function Select({ value, handleId, nodeId }: any) {
             ...node.data,
             selects: {
               ...node.data.selects,
-              [handleId]: evt.target.value,
-            },
-          };
+              [handleId]: evt.target.value
+            }
+          }
         }
 
-        return node;
-      }),
-    );
-  };
+        return node
+      })
+    )
+  }
 
   return (
     <div className="border border-red-500">
@@ -55,15 +61,15 @@ function Select({ value, handleId, nodeId }: any) {
       </select>
       <Handle
         type="source"
-        position={handleId === "handle-1" ? Position.Bottom : Position.Top}
+        position={handleId === 'handle-1' ? Position.Bottom : Position.Top}
         id={handleId}
         className="right"
       />
     </div>
-  );
+  )
 }
 
-function CustomNode({ id, data, selected }) {
+function CustomNode({ id, data, selected }: NodeProps) {
   // useEffect(() => {
   //   console.log("use effect -- selected", selected);
   // }, [selected]);
@@ -83,7 +89,7 @@ function CustomNode({ id, data, selected }) {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
-export default memo(CustomNode);
+export default memo(CustomNode)

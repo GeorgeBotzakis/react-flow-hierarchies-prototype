@@ -1,6 +1,7 @@
 import { NodeProps } from "reactflow";
+import { ChildNodeData } from "./EP_Node_Types";
 
-export const ChildNodeCard = (props: NodeProps<{ parentNodeId: string }>) => {
+export const ChildNodeCard = (props: ChildNodeData) => {
   //todo figure out how to pass in data
   // create custom edge
   // and create way to append new parent node next to current parent node

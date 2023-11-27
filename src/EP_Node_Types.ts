@@ -1,7 +1,11 @@
 export interface ParentNodeData {
-  childNodes: { id: string }
+  childNodes:  Array<{ id: string }>
+  nodeId: string
 }
 
 export interface ChildNodeData {
+  id: string
+  selected?: boolean
+
   parentNodeId: string
 }
