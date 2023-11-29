@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import ReactFlow, {
+  Node,
   addEdge,
   MiniMap,
   Controls,
@@ -18,6 +19,7 @@ import CustomNode from './CustomNode'
 import 'reactflow/dist/style.css'
 import './overview.scss'
 import ParentNodeCard from './ParentNodeCard'
+import { ParentNodeData } from './EP_Node_Types'
 
 const nodeTypes = {
   custom: CustomNode,
@@ -28,11 +30,24 @@ const minimapStyle = {
   height: 50
 }
 
+const overrideNodes: Node[] = [...initialNodes, {
+  id: 'parent-node-id',
+  type: 'epcc_node',
+  selectable: true,
+  position: {x: 300, y: 300},
+  data: {
+    nodeId: 'parent-node-id',
+    childNodes: [
+      {id: '1'}, {id: '2'}, {id: '3'}
+    ]
+  }
+} as Node<ParentNodeData>]
+
 const onInit = (reactFlowInstance) =>
   console.log('flow loaded:', reactFlowInstance)
 
 const OverviewFlow = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [nodes, setNodes, onNodesChange] = useNodesState(overrideNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
   const onConnect = useCallback((params) => {
     console.log('on connect', params)

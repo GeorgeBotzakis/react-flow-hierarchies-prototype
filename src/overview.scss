@@ -23,6 +23,12 @@
   color: white;
 }
 
+// override to fix
+.react-flow__node-epcc_node.selected {
+  background-color: unset;
+  color: white;
+}
+
 .react-flow__node.circle {
   border-radius: 50%;
   width: 60px;

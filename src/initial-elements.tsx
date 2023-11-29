@@ -1,4 +1,3 @@
-import React from 'react'
 import { MarkerType, Position, Node } from 'reactflow'
 
 export const nodes: Node[] = [
