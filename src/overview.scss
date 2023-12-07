@@ -10,17 +10,25 @@
 }
 
 .react-flow__node-custom .react-flow__handle {
-  // top: 24px;
-  // right: -5px;
   width: 6px;
   height: 10px;
   border-radius: 2px;
-  background-color: #778899;
 }
 
 .react-flow__node.selected {
   background-color: #1f8552;
   color: white;
+}
+
+// override to fix
+.react-flow__node-epcc_node.selected {
+  background-color: unset;
+  color: white;
+}
+
+// override to fix
+.react-flow__node-epcc_node {
+  cursor: grab !important;
 }
 
 .react-flow__node.circle {
@@ -37,10 +45,6 @@
     background-color: #1f8552;
   }
 }
-/* .react-flow__node.circle.react-flow__node.selected {
-  background-color: #1f8552;
-  color: white;
-} */
 
 .react-flow__node.annotation {
   border-radius: 0;
