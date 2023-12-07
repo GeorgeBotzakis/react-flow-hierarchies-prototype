@@ -1,17 +1,39 @@
-import { NodeProps } from "reactflow";
-import { ChildNodeData } from "./EP_Node_Types";
+import { Handle, Position, getMarkerEnd, MarkerType } from 'reactflow'
+import { ChildNodeData } from './CustomNodeTypes'
+import { cn } from './helper'
+import { useState } from 'react'
 
 export const ChildNodeCard = (props: ChildNodeData) => {
-  //todo figure out how to pass in data
-  // create custom edge
-  // and create way to append new parent node next to current parent node
-  //  by click on child node (this comp)
+  const [childrenExist, setChildrenExist] = useState(false)
 
-  const { id, selected } = props;
+  const { id, selected, onClick } = props
 
+  const handleId = `${props.parentNodeId}-handle-${id}`
   return (
-    <div className="w-10 h-20 bg-red-500">
-      <a>LINK</a>
+    <div
+      className={cn(
+        'relative z-200 bg-ep-step-up px-2 cursor-pointer nodrag',
+        selected && 'bg-ep-hm-dark text-ep-cloud'
+      )}
+      role="button"
+      onClick={async () => {
+        if (onClick) {
+          const numOfChildNodes = await onClick(id)
+          numOfChildNodes !== -1 && setChildrenExist(!!numOfChildNodes)
+        }
+      }}
+    >
+      <span>Child object </span>
+      <Handle
+        id={handleId}
+        type="source"
+        position={Position.Right}
+        className={cn(
+          'z-0 bg-ep-light-grey border-ep-light-grey right-[-3px]',
+          !childrenExist && 'invisible',
+          selected && 'bg-ep-hm-dark border-ep-hm-dark'
+        )}
+      />
     </div>
-  );
-};
+  )
+}
